@@ -69,7 +69,19 @@ export default class NewClass extends cc.Component {
         block.setPosition(pos);
     }
 
+    spawEggs(pos: cc.Vec3){
+        if(!this.eggsPrefab){
+            return null;
+        }
 
+        let block: cc.Node|null = null;
+
+        block = cc.instantiate(this.eggsPrefab);
+
+        this.node.addChild(block);
+
+        block.setPosition(pos);
+    }
 
     onLoad(){
         //spaw chicken
@@ -88,6 +100,8 @@ export default class NewClass extends cc.Component {
     start(){
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
     }
+
     update(dt) {
+        
     }
 }

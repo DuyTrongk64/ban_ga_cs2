@@ -10,8 +10,16 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
 
+    // @property(cc.Prefab)
+    // eggsPrefab: cc.Prefab= null;
+
     @property
     speed = 0;
+
+    @property
+    spawnTimerMax = 0;
+
+    private spawnTimer: number =0;
 
     onLoad () {
         //set collider
@@ -21,12 +29,12 @@ export default class NewClass extends cc.Component {
         manager.enabledDrawBoundingBox = true; 
     }
 
+    
+    
     onDestroy() {
         this.node.parent.getComponent('Game').gainScore();
     }
-    start () {
-
-    }
+    start () {}
 
     //set collision with ullet
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
@@ -40,5 +48,12 @@ export default class NewClass extends cc.Component {
         // let direction = new cc.Vec3(0, -1, 0);
         // let newPosition = this.node.position.add(direction.multiplyScalar(this.speed * dt));
         // this.node.setPosition(newPosition);
+
+        //spaw eggs
+        this.spawnTimer += 0.1;
+        if(this.spawnTimer > this.spawnTimerMax){
+            this.node.parent.getComponent('Game').spawEggs(this.node.getPosition());
+            this.spawnTimer =0;
+        }
     }
 }
