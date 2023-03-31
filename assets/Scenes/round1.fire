@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        326.5890209420579,
+        252.11083621659617,
         0,
         0,
         0,
@@ -998,6 +998,12 @@
     },
     "score": {
       "__id__": 23
+    },
+    "scorerAudio": {
+      "__uuid__": "97994fe6-7fc1-49f4-b0b4-c7ae1f384cd3"
+    },
+    "playerFire": {
+      "__uuid__": "c6bbe6e3-4ef5-40e9-8e1e-42325694b3ea"
     },
     "_id": "a7afnTrU9My5/jLvC1ifTN"
   }
