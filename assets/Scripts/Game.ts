@@ -18,14 +18,23 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     score: cc.Label = null;
 
+    @property(cc.AudioClip)
+    scorerAudio: cc.AudioClip = null;
+
+    @property(cc.AudioClip)
+    playerFire: cc.AudioClip = null;
+
     private playerScore =0;
 
+    //gain 5 score per chicken dead
     gainScore(){
         this.playerScore += 5;
         this.score.string = this.playerScore.toString();
+        cc.audioEngine.playEffect(this.scorerAudio,false);
     }
 
     onMouseDown(event: MouseEvent){
+        cc.audioEngine.playEffect(this.playerFire,false);
         this.spawPl_bulet();
     }
     
