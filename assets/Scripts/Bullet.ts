@@ -7,7 +7,7 @@ export default class NewClass extends cc.Component {
     speed = 0;
 
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
-        console.log(`Collided with ${other.node.name}!`);
+        //console.log(`Collided with ${other.node.name}!`);
         if(other.node.name == 'chicken'){
             this.node.destroy();
         }

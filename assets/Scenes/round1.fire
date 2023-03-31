@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        342.18828767032636,
+        326.6647928790894,
         0,
         0,
         0,
@@ -513,7 +513,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 12
@@ -645,7 +645,7 @@
       "__id__": 11
     },
     "asset": {
-      "__uuid__": "cf877673-2008-427b-82e4-acbcaec78050"
+      "__uuid__": "7034b9d7-816d-4a3c-b4c4-5be33dbd9fcc"
     },
     "fileId": "",
     "sync": false
@@ -887,7 +887,7 @@
     },
     "_enabled": true,
     "bulletPrefab": {
-      "__uuid__": "cf877673-2008-427b-82e4-acbcaec78050"
+      "__uuid__": "7034b9d7-816d-4a3c-b4c4-5be33dbd9fcc"
     },
     "chickenPrefab": {
       "__uuid__": "23967dce-82a6-4170-83a3-f927f82081d0"
