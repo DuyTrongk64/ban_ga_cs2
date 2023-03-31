@@ -16,8 +16,6 @@ export default class NewClass extends cc.Component {
    
 
     onLoad () {
-        const sprite = this.node.getComponent(cc.Sprite);
-        sprite.spriteFrame = spriteFrame;
     }
 
     start () {
