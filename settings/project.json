@@ -1,11 +1,24 @@
 {
   "start-scene": "f782430d-fbc0-46fb-9ed9-05ae3c638eab",
   "group-list": [
-    "default"
+    "player",
+    "chicken",
+    "bullet"
   ],
   "collision-matrix": [
     [
+      false,
       true
+    ],
+    [
+      true,
+      false,
+      true
+    ],
+    [
+      false,
+      true,
+      false
     ]
   ],
   "excluded-modules": [

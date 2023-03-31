@@ -6,7 +6,12 @@ export default class NewClass extends cc.Component {
     @property()
     speed = 0;
 
-    // LIFE-CYCLE CALLBACKS:
+    onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
+        console.log(`Collided with ${other.node.name}!`);
+        if(other.node.name == 'chicken'){
+            this.node.destroy();
+        }
+    }
 
     // onLoad () {}
 

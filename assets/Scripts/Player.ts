@@ -11,8 +11,7 @@ export default class NewClass extends cc.Component {
     private goUp: boolean;
     private goDown: boolean;
 
-    // private phys = cc.director.getPhysicsManager();
-    // private velocity = new cc.Vec3(0, 0, 0);
+
     onKeyDown(event) {
         // set a flag when key pressed
         switch(event.keyCode) {
@@ -53,6 +52,7 @@ export default class NewClass extends cc.Component {
         
     }
 
+    //move player
     moveAround(dt){
         let direction = new cc.Vec3(0, 0, 0);
         if (this.goLeft) {
@@ -74,6 +74,7 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    //set collision with aggs 
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
         console.log(`Collided with ${other.node.name}!`);
         if(other.node.name == 'ground'){
@@ -82,11 +83,8 @@ export default class NewClass extends cc.Component {
     }
 
     onLoad(){
-        //set physics
-        // this.phys.enabled = true;
-        // let rigidBody = this.node.getComponent(cc.RigidBody);
-        // rigidBody.enabledContactListener = true;
     }
+    
     start() {
 
         this.goLeft = false;

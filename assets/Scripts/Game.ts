@@ -19,6 +19,7 @@ export default class NewClass extends cc.Component {
         this.spawPl_bulet();
     }
     
+    //spaw bullet at player position
     spawPl_bulet(){
         if(!this.bulletPrefab){
             return null;
@@ -48,7 +49,11 @@ export default class NewClass extends cc.Component {
 
         block.setPosition(pos);
     }
+
+
+
     onLoad(){
+        //spaw chicken
         let pos = new cc.Vec3(-150,250,0);
         let count = 0;
         for(let i=0;i<5;i++){
