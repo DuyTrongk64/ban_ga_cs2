@@ -21,6 +21,9 @@ export default class NewClass extends cc.Component {
         manager.enabledDrawBoundingBox = true; 
     }
 
+    onDestroy() {
+        this.node.parent.getComponent('Game').gainScore();
+    }
     start () {
 
     }

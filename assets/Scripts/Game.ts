@@ -15,7 +15,17 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     player: cc.Node= null;
 
-    onMouseUp(event: MouseEvent){
+    @property(cc.Label)
+    score: cc.Label = null;
+
+    private playerScore =0;
+
+    gainScore(){
+        this.playerScore += 5;
+        this.score.string = this.playerScore.toString();
+    }
+
+    onMouseDown(event: MouseEvent){
         this.spawPl_bulet();
     }
     
@@ -31,7 +41,7 @@ export default class NewClass extends cc.Component {
 
         this.node.addChild(block);
 
-        console.log(this.player.getPosition());
+        //console.log(this.player.getPosition());
         block.setPosition(this.player.getPosition());
 
     }
@@ -67,7 +77,7 @@ export default class NewClass extends cc.Component {
     }
 
     start(){
-        this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
     }
     update(dt) {
     }
