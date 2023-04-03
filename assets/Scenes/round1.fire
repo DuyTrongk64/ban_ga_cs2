@@ -189,7 +189,7 @@
       "array": [
         0,
         0,
-        309.84223355317795,
+        318.8201111303754,
         0,
         0,
         0,
@@ -910,7 +910,6 @@
     },
     "_enabled": true,
     "speed": 0,
-    "spawnTimerMax": 50,
     "_id": "d5ABdDcDhMeK1Y7ZTpFBGd"
   },
   {
@@ -1147,6 +1146,7 @@
     "playerFire": {
       "__uuid__": "c6bbe6e3-4ef5-40e9-8e1e-42325694b3ea"
     },
+    "spawnTimerMax": 10,
     "_id": "a7afnTrU9My5/jLvC1ifTN"
   }
 ]
