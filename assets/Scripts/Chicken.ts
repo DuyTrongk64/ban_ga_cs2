@@ -16,11 +16,6 @@ export default class NewClass extends cc.Component {
     @property
     speed = 0;
 
-    @property
-    spawnTimerMax = 0;
-
-    private spawnTimer: number =0;
-
     onLoad () {
         //set collider
         var manager = cc.director.getCollisionManager();
@@ -48,12 +43,7 @@ export default class NewClass extends cc.Component {
         // let direction = new cc.Vec3(0, -1, 0);
         // let newPosition = this.node.position.add(direction.multiplyScalar(this.speed * dt));
         // this.node.setPosition(newPosition);
-
-        //spaw eggs
-        this.spawnTimer += 0.1;
-        if(this.spawnTimer > this.spawnTimerMax){
-            this.node.parent.getComponent('Game').spawEggs(this.node.getPosition());
-            this.spawnTimer =0;
-        }
+        
+        
     }
 }

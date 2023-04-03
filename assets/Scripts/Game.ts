@@ -24,8 +24,18 @@ export default class NewClass extends cc.Component {
     @property(cc.AudioClip)
     playerFire: cc.AudioClip = null;
 
+    @property
+    spawnTimerMax: number = 0;
+
+    private spawnTimer: number =0;
+
     private playerScore =0;
 
+    private chicken: Array<cc.Node> = [];
+
+    private time: number =0;
+
+    private count: number =0;
     //gain 5 score per chicken dead
     gainScore(){
         this.playerScore += 5;
@@ -67,6 +77,8 @@ export default class NewClass extends cc.Component {
         this.node.addChild(block);
 
         block.setPosition(pos);
+
+        return block;
     }
 
     spawEggs(pos: cc.Vec3){
@@ -83,25 +95,47 @@ export default class NewClass extends cc.Component {
         block.setPosition(pos);
     }
 
+    getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+
+    randSpawEggs(){
+        this.spawnTimer += 0.1;
+        if(this.spawnTimer > this.spawnTimerMax){
+            this.count++;
+            
+            let rand = this.getRandomInt(this.chicken.length);
+            
+            if(this.chicken[rand].getPosition()!=null){
+                let ckPos = this.chicken[rand].getPosition();
+                let pos = new cc.Vec3(ckPos.x,ckPos.y,0);
+                this.spawEggs(pos);
+                this.spawnTimer =0;
+            }
+        }
+    }
+
     onLoad(){
         //spaw chicken
         let pos = new cc.Vec3(-150,250,0);
-        let count = 0;
-        for(let i=0;i<5;i++){
+        for(let i=0;i<3;i++){
             for(let j=0;j<5;j++){
                 pos.x+=75*j;
                 pos.y-=75*i
-                this.spawChicken(pos);
+                this.chicken.push(this.spawChicken(pos));
                 pos = new cc.Vec3(-150,250,0);
             }
         }
     }
 
+    
     start(){
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+        console.log('start');
     }
 
     update(dt) {
-        
+        //spaw eggs
+        this.randSpawEggs();
     }
 }
