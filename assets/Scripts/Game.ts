@@ -12,6 +12,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     eggsPrefab: cc.Prefab= null;
 
+    @property(cc.Prefab)
+    heartPrefab: cc.Prefab= null;
+
     @property(cc.Node)
     player: cc.Node= null;
 
@@ -19,7 +22,7 @@ export default class NewClass extends cc.Component {
     score: cc.Label = null;
 
     @property(cc.AudioClip)
-    scorerAudio: cc.AudioClip = null;
+    chicken_hit: cc.AudioClip = null;
 
     @property(cc.AudioClip)
     playerFire: cc.AudioClip = null;
@@ -32,15 +35,17 @@ export default class NewClass extends cc.Component {
     private playerScore =0;
 
     private chicken: Array<cc.Node> = [];
+    private heart: Array<cc.Node> = [];
 
     private time: number =0;
 
     private count: number =0;
     //gain 5 score per chicken dead
     gainScore(){
+        cc.NodePool
         this.playerScore += 5;
         this.score.string = this.playerScore.toString();
-        cc.audioEngine.playEffect(this.scorerAudio,false);
+        cc.audioEngine.playEffect(this.chicken_hit,false);
     }
 
     onMouseDown(event: MouseEvent){
@@ -48,6 +53,30 @@ export default class NewClass extends cc.Component {
         this.spawPl_bulet();
     }
     
+    spawHeart(pos: cc.Vec3){
+        if(!this.heartPrefab){
+            return null;
+        }
+
+        let block: cc.Node|null = null;
+
+        block = cc.instantiate(this.heartPrefab);
+
+        this.node.addChild(block);
+
+        block.setPosition(pos);
+
+        return block;
+    }
+
+    drawHeart(){
+        let pos = new cc.Vec3(-450,280,0);
+        for(let i=0;i<3;i++){
+            pos.x+=35*i;
+            this.heart.push(this.spawHeart(pos));
+            pos = new cc.Vec3(-450,280,0);
+        }
+    }
     //spaw bullet at player position
     spawPl_bulet(){
         if(!this.bulletPrefab){
@@ -79,6 +108,19 @@ export default class NewClass extends cc.Component {
         block.setPosition(pos);
 
         return block;
+    }
+
+    drawChicken(){
+        //spaw chicken
+        let pos = new cc.Vec3(-150,250,0);
+        for(let i=0;i<3;i++){
+            for(let j=0;j<5;j++){
+                pos.x+=75*j;
+                pos.y-=75*i
+                this.chicken.push(this.spawChicken(pos));
+                pos = new cc.Vec3(-150,250,0);
+            }
+        }
     }
 
     spawEggs(pos: cc.Vec3){
@@ -115,26 +157,42 @@ export default class NewClass extends cc.Component {
         }
     }
 
-    onLoad(){
-        //spaw chicken
-        let pos = new cc.Vec3(-150,250,0);
-        for(let i=0;i<3;i++){
-            for(let j=0;j<5;j++){
-                pos.x+=75*j;
-                pos.y-=75*i
-                this.chicken.push(this.spawChicken(pos));
-                pos = new cc.Vec3(-150,250,0);
-            }
+    gameOver(){
+        this.player.stopAllActions();
+        cc.director.loadScene('menu');
+    }
+
+    checkHp(){
+        let hp = this.player.getComponent('Player').hp;
+        if(hp==2){
+            this.heart[2].destroy();
         }
+        if(hp==1){
+            this.heart[1].destroy();
+        }
+        if(hp==0){
+            this.heart[0].destroy();
+            this.gameOver();
+            return;
+        }
+
+    }
+    onLoad(){
+        this.drawChicken();
+        this.drawHeart();
+
+        cc.director.preloadScene('menu');
     }
 
     
     start(){
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+        console.log(this.player.getComponent('Player').hp);
     }
 
     update(dt) {
         //spaw eggs
         this.randSpawEggs();
+        this.checkHp()
     }
 }

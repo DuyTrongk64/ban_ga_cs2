@@ -12,7 +12,9 @@ export default class NewClass extends cc.Component {
     private goDown: boolean;
 
     private screenSize: cc.Size = cc.view.getFrameSize();
-    private hp: number =3;
+    hp: number =3;
+
+    //hp = 3;
 
     onKeyDown(event) {
         // set a flag when key pressed
