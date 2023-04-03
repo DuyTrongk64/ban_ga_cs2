@@ -3,11 +3,14 @@
   "group-list": [
     "player",
     "chicken",
-    "bullet"
+    "bullets",
+    "eggs"
   ],
   "collision-matrix": [
     [
       false,
+      true,
+      null,
       true
     ],
     [
@@ -18,6 +21,12 @@
     [
       false,
       true,
+      false
+    ],
+    [
+      true,
+      false,
+      false,
       false
     ]
   ],

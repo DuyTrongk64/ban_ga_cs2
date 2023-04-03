@@ -12,6 +12,7 @@ export default class NewClass extends cc.Component {
     private goDown: boolean;
 
     private screenSize: cc.Size = cc.view.getFrameSize();
+    private hp: number =3;
 
     onKeyDown(event) {
         // set a flag when key pressed
@@ -95,11 +96,12 @@ export default class NewClass extends cc.Component {
     }
 
     
-    //set collision with aggs 
+    //set collision with eggs 
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
-        // if(other.node.name == 'ground'){
-            
-        // }
+        //console.log(`Collided with ${other.node.name}!`);
+        if(other.node.name == 'egg'){
+            this.hp--;
+        }
     }
 
     onLoad(){
@@ -124,5 +126,8 @@ export default class NewClass extends cc.Component {
 
     update(dt) {
         this.moveAround(dt);
+        if(this.hp==0){
+            console.log('game over');
+        }
     }
 }
