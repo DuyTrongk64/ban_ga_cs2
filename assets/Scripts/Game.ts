@@ -131,7 +131,6 @@ export default class NewClass extends cc.Component {
     
     start(){
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
-        console.log('start');
     }
 
     update(dt) {

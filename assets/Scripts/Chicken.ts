@@ -29,6 +29,7 @@ export default class NewClass extends cc.Component {
     onDestroy() {
         this.node.parent.getComponent('Game').gainScore();
     }
+
     start () {}
 
     //set collision with ullet

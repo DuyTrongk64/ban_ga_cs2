@@ -11,6 +11,7 @@ export default class NewClass extends cc.Component {
     private goUp: boolean;
     private goDown: boolean;
 
+    private screenSize: cc.Size = cc.view.getFrameSize();
 
     onKeyDown(event) {
         // set a flag when key pressed
@@ -49,12 +50,31 @@ export default class NewClass extends cc.Component {
     }
 
     collidingWithEdge(){
-        
+        let worldRect = this.node.getBoundingBoxToWorld();
+        let screenSize = cc.view.getVisibleSize();
+        let curPos = this.node.getPosition();
+
+        if (worldRect.xMin < 0){
+            this.goLeft = false;
+        }
+
+        if (worldRect.xMax > screenSize.width){
+            this.goRight = false;
+        }
+
+        if (worldRect.yMin < 0){
+            this.goDown = false;
+        }
+
+        if (worldRect.yMax > screenSize.height){
+            this.goUp = false;
+        }
     }
 
     //move player
     moveAround(dt){
         let direction = new cc.Vec3(0, 0, 0);
+        this.collidingWithEdge();
         if (this.goLeft) {
             direction.x -= 1;
         } 
@@ -74,12 +94,12 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    
     //set collision with aggs 
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
-        //console.log(`Collided with ${other.node.name}!`);
-        if(other.node.name == 'ground'){
+        // if(other.node.name == 'ground'){
             
-        }
+        // }
     }
 
     onLoad(){
@@ -104,6 +124,5 @@ export default class NewClass extends cc.Component {
 
     update(dt) {
         this.moveAround(dt);
-
     }
 }
