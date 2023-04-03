@@ -105,8 +105,8 @@ export default class NewClass extends cc.Component {
             this.count++;
             
             let rand = this.getRandomInt(this.chicken.length);
-            
-            if(this.chicken[rand].getPosition()!=null){
+            //console.log(this.chicken[rand].isValid);
+            if(this.chicken[rand].isValid){
                 let ckPos = this.chicken[rand].getPosition();
                 let pos = new cc.Vec3(ckPos.x,ckPos.y,0);
                 this.spawEggs(pos);
