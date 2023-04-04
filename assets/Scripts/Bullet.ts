@@ -6,6 +6,10 @@ export default class NewClass extends cc.Component {
     @property()
     speed = 0;
 
+    stopMove () {
+        this.node.stopAllActions();
+    }
+    
     collidingWithEdge(){
         let worldRect = this.node.getBoundingBoxToWorld();
         let screenSize = cc.view.getVisibleSize();

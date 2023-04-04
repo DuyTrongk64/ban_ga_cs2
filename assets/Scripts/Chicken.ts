@@ -25,6 +25,10 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    stopMove () {
+        this.node.stopAllActions();
+    }
+
     onLoad () {
         //set collider
         var manager = cc.director.getCollisionManager();
@@ -37,6 +41,7 @@ export default class NewClass extends cc.Component {
     
     onDestroy() {
         this.node.parent.getComponent('Game').gainScore();
+        this.node.parent.getComponent('Game2').gainScore();
     }
 
     start () {}

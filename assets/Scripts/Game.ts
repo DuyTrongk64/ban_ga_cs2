@@ -1,4 +1,5 @@
 import Player from "./Player";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -179,9 +180,7 @@ export default class NewClass extends cc.Component {
     }
 
     gameOver(){
-        this.player.enabled = false;
-        this.player.stopMove();
-        this.node.stopAllActions();
+        cc.game.pause();
         this.isPlaying = false;
         //cc.director.loadScene('menu');
     }
