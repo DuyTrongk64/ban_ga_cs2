@@ -29,8 +29,8 @@ export default class NewClass extends cc.Component {
         //set collider
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        manager.enabledDebugDraw = true;
-        manager.enabledDrawBoundingBox = true; 
+        // manager.enabledDebugDraw = true;
+        // manager.enabledDrawBoundingBox = true; 
     }
 
     

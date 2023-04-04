@@ -1,3 +1,4 @@
+import Player from "./Player";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -15,8 +16,10 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     heartPrefab: cc.Prefab= null;
 
-    @property(cc.Node)
-    player: cc.Node= null;
+    @property({
+        type: Player
+    })
+    player: Player = null;
 
     @property(cc.Label)
     score: cc.Label = null;
@@ -40,6 +43,24 @@ export default class NewClass extends cc.Component {
     private time: number =0;
 
     private count: number =0;
+
+    private curHp = 3;
+
+    private isPlaying: boolean;
+
+    onKeyDown(event) {
+        // set a flag when key pressed
+        switch(event.keyCode) {
+            case cc.macro.KEY.e:
+                this.node.pauseAllActions();
+                //cc.director.loadScene('menu');
+                break;
+            case cc.macro.KEY.r:
+                this.node.resumeAllActions();
+                //cc.director.loadScene('menu');
+                break;
+        }
+    }
     //gain 5 score per chicken dead
     gainScore(){
         cc.NodePool
@@ -90,7 +111,7 @@ export default class NewClass extends cc.Component {
         this.node.addChild(block);
 
         //console.log(this.player.getPosition());
-        block.setPosition(this.player.getPosition());
+        block.setPosition(this.player.getComponent('Player').getPos());
 
     }
 
@@ -158,23 +179,30 @@ export default class NewClass extends cc.Component {
     }
 
     gameOver(){
-        this.player.stopAllActions();
-        cc.director.loadScene('menu');
+        this.player.enabled = false;
+        this.player.stopMove();
+        this.node.stopAllActions();
+        this.isPlaying = false;
+        //cc.director.loadScene('menu');
     }
 
     checkHp(){
         let hp = this.player.getComponent('Player').hp;
-        if(hp==2){
-            this.heart[2].destroy();
+        if(this.isPlaying){
+            if(hp<this.curHp){
+                console.log('destroy');
+                this.heart[hp].removeFromParent(true);
+                this.curHp = hp;
+                console.log(`hp = ${hp}`);
+                console.log(`curHp = ${this.curHp}`);
+            }
+            if(this.curHp==0){
+                console.log('end game');
+                this.gameOver();
+                return;   
+            }
         }
-        if(hp==1){
-            this.heart[1].destroy();
-        }
-        if(hp==0){
-            this.heart[0].destroy();
-            this.gameOver();
-            return;
-        }
+        
 
     }
     onLoad(){
@@ -186,11 +214,16 @@ export default class NewClass extends cc.Component {
 
     
     start(){
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,this.onKeyDown, this);
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
-        console.log(this.player.getComponent('Player').hp);
+        this.isPlaying = true;
     }
 
+    onDestroy(){
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    }
     update(dt) {
+        if (!this.isPlaying) return;
         //spaw eggs
         this.randSpawEggs();
         this.checkHp()

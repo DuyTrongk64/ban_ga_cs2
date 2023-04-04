@@ -14,8 +14,6 @@ export default class NewClass extends cc.Component {
     private screenSize: cc.Size = cc.view.getFrameSize();
     hp: number =3;
 
-    //hp = 3;
-
     onKeyDown(event) {
         // set a flag when key pressed
         switch(event.keyCode) {
@@ -97,6 +95,13 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    getPos(){
+        return this.node.getPosition();
+    }
+
+    stopMove () {
+        this.node.stopAllActions();
+    }
     
     //set collision with eggs 
     onCollisionEnter(other: cc.PhysicsCollider, self: cc.PhysicsCollider){
